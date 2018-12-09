@@ -577,6 +577,7 @@ impl UnprivilegedPipelineContent {
     #[cfg(all(not(target_os = "windows"), not(target_os = "ios")))]
     pub fn spawn_multiprocess(self) -> Result<(), Error> {
         use crate::sandboxing::content_process_sandbox_profile;
+        #[cfg(not(target_os = "android"))]
         use gaol::sandbox::{self, Sandbox, SandboxMethods};
         use ipc_channel::ipc::IpcOneShotServer;
 
@@ -604,7 +605,7 @@ impl UnprivilegedPipelineContent {
             .expect("Failed to create IPC one-shot server.");
 
         // If there is a sandbox, use the `gaol` API to create the child process.
-        if opts::get().sandbox {
+        if opts::get().sandbox && cfg!(target_os = "android") {
             let mut command = sandbox::Command::me().expect("Failed to get current sandbox.");
             self.setup_common(&mut command, token);
 

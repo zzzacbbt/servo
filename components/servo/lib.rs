@@ -75,7 +75,7 @@ use constellation::{FromCompositorLogger, FromScriptLogger};
 use crossbeam_channel::{unbounded, Sender};
 use embedder_traits::{EmbedderMsg, EmbedderProxy, EmbedderReceiver, EventLoopWaker};
 use env_logger::Builder as EnvLoggerBuilder;
-#[cfg(all(not(target_os = "windows"), not(target_os = "ios")))]
+#[cfg(all(not(target_os = "windows"), not(target_os = "ios"), not(target_os = "android")))]
 use gaol::sandbox::{ChildSandbox, ChildSandboxMethods};
 use gfx::font_cache_thread::FontCacheThread;
 use ipc_channel::ipc::{self, IpcSender};
@@ -661,7 +661,7 @@ pub fn run_content_process(token: String) {
                                      );
 }
 
-#[cfg(all(not(target_os = "windows"), not(target_os = "ios")))]
+#[cfg(all(not(target_os = "windows"), not(target_os = "ios"), not(target_os = "android")))]
 fn create_sandbox() {
     ChildSandbox::new(content_process_sandbox_profile())
         .activate()

@@ -17,7 +17,7 @@ mod constellation;
 mod event_loop;
 mod network_listener;
 mod pipeline;
-#[cfg(all(not(target_os = "windows"), not(target_os = "ios")))]
+#[cfg(all(not(target_os = "windows"), not(target_os = "ios"), not(target_os = "android")))]
 mod sandboxing;
 mod session_history;
 mod timer_scheduler;
