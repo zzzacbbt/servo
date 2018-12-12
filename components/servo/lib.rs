@@ -68,7 +68,7 @@ use canvas::webgl_thread::WebGLThreads;
 use compositing::compositor_thread::{CompositorProxy, CompositorReceiver, InitialCompositorState};
 use compositing::windowing::{WindowEvent, WindowMethods};
 use compositing::{IOCompositor, RenderNotifier, ShutdownState};
-#[cfg(all(not(target_os = "windows"), not(target_os = "ios")))]
+#[cfg(all(not(target_os = "windows"), not(target_os = "ios"), not(target_os = "android")))]
 use constellation::content_process_sandbox_profile;
 use constellation::{Constellation, InitialConstellationState, UnprivilegedPipelineContent};
 use constellation::{FromCompositorLogger, FromScriptLogger};
@@ -668,7 +668,7 @@ fn create_sandbox() {
         .expect("Failed to activate sandbox!");
 }
 
-#[cfg(any(target_os = "windows", target_os = "ios"))]
+#[cfg(any(target_os = "windows", target_os = "ios", target_os = "android"))]
 fn create_sandbox() {
-    panic!("Sandboxing is not supported on Windows or iOS.");
+    panic!("Sandboxing is not supported on Windows, iOS and android.");
 }
