@@ -24,3 +24,8 @@ opt-level = 3
 #
 #     [patch."https://github.com/servo/<repository>"]
 #     <crate> = { path = "/path/to/local/checkout" }
+[patch."https://github.com/servo/webrender"]
+#webrender = { path = "../webrender/webrender" }
+webrender = { git = "https://github.com/jdm/webrender", branch = "android-freetype" }
+webrender_api = { git = "https://github.com/jdm/webrender", branch = "android-freetype" }
+#webrender_api = { path = "../webrender/webrender_api" }
